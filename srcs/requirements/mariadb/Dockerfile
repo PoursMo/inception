@@ -3,15 +3,13 @@ FROM debian:bullseye
 RUN apt-get update && \
     apt-get install -y mariadb-server
 
-# setup config files
-COPY conf/50-server.cnf /etc/mysql/mariabd.conf.d/
-COPY conf/init.sql /etc/mysql/init.sql
+# setup config file
+COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d/
 # setup entrypoint script
-COPY ./tools/entrypoint.sh /usr/local/bin/
+COPY tools/entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
-# create necessary directory
-RUN mkdir /run/mysqld
+RUN chown -R mysql /var/lib/mysql
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 

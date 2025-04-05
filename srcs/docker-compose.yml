@@ -1,9 +1,7 @@
-version: "3.8"
-
 services:
   nginx:
     build: ./requirements/nginx
-    container_name: nginx
+    image: nginx
     depends_on:
       - wordpress
     env_file:
@@ -13,13 +11,13 @@ services:
     networks:
       - inception_network
     volumes:
-      - /home/aloubry/data/wp_files:/var/www/html
+      - wp_files:/var/www/html
     restart: always
 
 
   wordpress:
     build: ./requirements/wordpress
-    container_name: wordpress
+    image: wordpress
     depends_on:
       - mariadb
     env_file:
@@ -27,21 +25,34 @@ services:
     networks:
       - inception_network
     volumes:
-      - /home/aloubry/data/wp_files:/var/www/html
+      - wp_files:/var/www/html
     restart: always
 
 
   mariadb:
     build: ./requirements/mariadb
-    container_name: mariadb
+    image: mariadb
     env_file:
       - .env
     networks:
       - inception_network
     volumes:
-      - /home/aloubry/data/wp_database:/var/lib/mysql
+      - wp_database:/var/lib/mysql
     restart: always
 
+volumes:
+  wp_database:
+    driver: local
+    driver_opts:
+      device: /home/aloubry/data/wp_database
+      type: none
+      o: bind
+  wp_files:
+    driver: local
+    driver_opts:
+      device: /home/aloubry/data/wp_files
+      type: none
+      o: bind
 
 networks:
   inception_network:
