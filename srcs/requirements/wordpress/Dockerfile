@@ -1,7 +1,11 @@
 FROM debian:bullseye
 
 RUN apt-get update && \
-	apt-get install -y wget curl php7.4-fpm php7.4-mysql
+	apt-get install -y \
+    wget \
+    curl \
+    php7.4-fpm \
+    php7.4-mysql
 
 # setup config file
 COPY conf/www.conf /etc/php/7.4/fpm/pool.d/
@@ -12,7 +16,7 @@ RUN	mkdir -p /run/php && \
 WORKDIR /var/www/html/
 
 # setup entrypoint script
-COPY ./tools/entrypoint.sh /usr/local/bin/
+COPY tools/entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

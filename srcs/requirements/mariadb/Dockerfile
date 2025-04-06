@@ -5,11 +5,10 @@ RUN apt-get update && \
 
 # setup config file
 COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d/
+
 # setup entrypoint script
 COPY tools/entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/entrypoint.sh
-
-RUN chown -R mysql /var/lib/mysql
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
