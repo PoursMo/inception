@@ -1,0 +1,30 @@
+body {
+    font-family: sans-serif;
+    font-size: 16px;
+    color: black;
+    background: wheat;
+}
+
+h5
+{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+p
+{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.img_desc {
+    font-size: 13px;
+    color: #a52a2a;
+}
+
+.infos {
+    display: flex;
+    width: 100vw;
+    align-items: center;
+    flex-direction: column;
+}
